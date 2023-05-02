@@ -1,0 +1,154 @@
+\documentclass[14pt]{extarticle}
+\renewcommand{\contentsname}{Indice}
+\usepackage[italian]{babel}
+\usepackage{tocloft}
+\usepackage{graphicx}
+\renewcommand{\cftsubsecleader}{\cftdotfill{\cftdotsep}}
+\title{\textbf{\textit{-- --- Oral Exam Extractor --- --}}}
+\author{\textit{Giona Opizzi}}
+\date{\underline{2022-2023}\\\vspace{90px}\includegraphics[width=9cm]{rob.jpg}}
+\begin{document}
+\maketitle
+\newpage
+\vspace{100px}
+\par\noindent\rule{\textwidth}{0.8pt}
+\tableofcontents
+\newpage
+\par\noindent\rule{\textwidth}{0.2pt}
+\section{Introduzione}
+\vspace{50px}
+%text intro section
+Questo progetto consiste in un programma scritto in linguaggio \textbf{C} che grazie a dei file di salvataggio (ovvero semplici file txt) riesce a salvare in memoria i giorni in cui sono presenti delle interrogazioni e i relativi interrogati.
+
+Il programma permette di aggiungere nuovi turni di interrogazioni selezionando per ogni turno l'ordine ideale di interrogati affinché ogni alunno abbia la quantità di tempo necessaria allo studio maggiore possibile.
+
+L'idea è quella di avere un programma facilmente eseguibile che permetta di rimuovere le interrogazioni estratte casualmente per lasciare spazio ad un metodo di generazione dei turni equo ed utile, per poter gestire in modo ottimale tempo ed energie.
+\vspace{50px}
+\par\noindent\rule{\textwidth}{0.2pt}
+\section{File di salvataggio}
+\vspace{50px}
+\subsection{Calendario}
+%text for calendario
+\textbf{Calendario.txt} è un file esterno che viene utilizzato per scrivere i giorni in cui sono presenti interrogazioni seguite dai relativi interrogati.
+
+Il file contiene due parole chiave che facilitano la lettura di quest'ultimo, le due parole sono \textbf{Start} ed \textbf{End}, e vanno posizionate rispettivamente all'inizio e alla fine del file stesso.
+
+I vari turni di interrogazioni sono inseriti scrivendo per prima cosa il numero del giorno seguito dai numeri dell'ordine alfabetico della classe (ordine scritto nel file \textbf{Registro}) separati da virgole.
+
+Il numero del giorno è rappresentato in formato "anno", questo formato permette di memorizzare l'intero anno scolastico come un unico array che va da settembre a giugno, permettendo tramite delle di funzioni di tradurlo in formato gg/mm o viceversa.
+
+I numeri degli interrogati sono inseriti dopo il numero del giorno, divisi da uno spazio e separati l'uno dall'altro da una virgola.
+\vspace{50px}
+\subsection{Registro}
+%text for registro
+\textbf{Registro.txt} è un file esterno che viene utilizzato per poter correlare i nomi degli studenti di una determinata classe ai numeri dell'ordine alfabetico.
+
+Ciò è utilizzato per rendere più leggibile l'output, infatti per calcolare la distanza tra un'interrogazione ed un'altra viene utilizzato il numero dell'ordine alfabetico e non il nome dello studente.
+
+Questo file è quindi utile per poter rendere più leggibile il risultato, risparmiando all'utente la scomodità di dover controllare a mano quale studente corrisponde al relativo numero.
+\vspace{50px}
+\par\noindent\rule{\textwidth}{0.2pt}
+\section{Spiegazione funzioni}
+\vspace{50px}
+\subsection{Find}
+\subsubsection*{Funzione}
+%text for funzione
+Funzione che permette di restituire l'indice di un carattere all'interno di una stringa ricevuta come argomento;
+\subsubsection*{Argomenti}
+%text for argomenti
+char str[30] $\longrightarrow$ stringa nella quale cercare in carattere;
+\\char c $\longrightarrow$ carattere da cercare nella stringa;
+\subsubsection*{Return}
+%text for Return
+Intero rappresentante l'indice della prima comparsa di c in str, -1 se non è presente.
+\vspace{50px}
+\subsection{Convert}
+%text for Convert
+\subsubsection*{Funzione}
+%text for funzione
+Funzione che converte la data da mese/giorno a indice di un array che considera tutti i giorni in ordine come un array (da settembre a giugno);
+\subsubsection*{Argomenti}
+%text for argomenti
+int g $\longrightarrow$ giorno;
+\\int m $\longrightarrow$ mese;
+\subsubsection*{Return}
+%text for Return
+Intero rappresentante la data inviata come argomento in formato indice del giorno nell'array anno.
+\vspace{50px}
+\subsection{StampaAlunni}
+%text for StampaAlunni
+\subsubsection*{Procedura}
+%text for funzione
+Stampa tutti gli alunni salvati nel file \textbf{registro.txt} con relativo numero dell'elenco;
+\subsubsection*{Argomenti}
+%text for argomenti
+int na $\longrightarrow$ intero rappresentante il numero totale di alunni;
+\\char al[na][30] $\longrightarrow$ array di stringhe contenente nome e cognome degli alunni in ordine alfabetico.
+\vspace{50px}
+\subsection{NumeroAlunno}
+%text for NumeroAlunno
+\subsubsection*{Funzione}
+%text for funzione
+Funzione che stampa nome e cognome di un certo alunno in base al numero di elenco fornito come argomento;
+\subsubsection*{Argomenti}
+%text for argomenti
+int na $\longrightarrow$ intero rappresentante il numero totale di alunni; 
+\\char al[na][30] $\longrightarrow$ array di stringhe contenente nome e cognome degli alunni in ordine alfabetico;
+\\int num $\longrightarrow$ numero dell'ordine alfabetico a cui corrisponde lo studente desiderato;
+\subsubsection*{Return}
+%text for Return
+Restituisce una stringa contenente nome e cognome dello studente di numero num.
+\vspace{50px}
+\subsection{Distanza}
+%text for Distanza
+\subsubsection*{Funzione}
+%text for funzione
+ Funzione che riceve come argomento un giorno, uno studente, e l'anno delle interrogazioni e restituisce la distanza tra il giorno inserito e il giorno più vicino in cui lo studente passato come argomento verrà interrogato;
+\subsubsection*{Argomenti}
+%text for argomenti
+int num $\longrightarrow$ numero dell'alunno interessato;
+\\int g $\longrightarrow$ giorno dell'interrogazione;
+\\char y[303][30] $\longrightarrow$ array con una stringa per ogni giorno dell'anno scolastico, stringa contenente i numeri degli interrogati di tale giorno;
+\subsubsection*{Return}
+%text for Return
+ Restituisce la distanza dal giorno inserito e l'interrogazione più vicina dell'alunno inserito, se non ci sono in un arco di 10 giorni restituisce -1.
+\vspace{50px}
+\subsection{Carica}
+%text for Carica
+\subsubsection*{Procedura}
+%text for funzione
+Apre il file calendario e salva nell'array y gli interrogati segnati nel file nel giorno in cui sono effettivamente interrogati;
+\subsubsection*{Argomenti}
+%text for argomenti
+char y[303][30] $\longrightarrow$ array con una stringa per ogni giorno dell'anno scolastico, stringa contenente i numeri degli interrogati di tale giorno.
+\vspace{50px}
+\subsection{StampaCalendario}
+%text for StampaCalendario
+\subsubsection*{Procedura}
+%text for funzione
+Stampa tutti i giorni dell'anno scolastico divisi in mesi, scrivendo anche i relativi interrogati;
+\subsubsection*{Argomenti}
+%text for argomenti
+char y[303][30] $\longrightarrow$ array con una stringa per ogni giorno dell'anno scolastico, stringa contenente i numeri degli interrogati di tale giorno.
+\vspace{50px}
+\subsection{Menu}
+%text for Menu
+\subsubsection*{Procedura}
+%text for funzione
+Procedura che esegue il menu principale del programma, dal quale sarà possibile interagire con le altre funzioni;
+\subsubsection*{Argomenti}
+%text for argomenti
+char y[303][30] $\longrightarrow$ array con una stringa per ogni giorno dell'anno scolastico, stringa contenente i numeri degli interrogati di tale giorno;
+\\int na $\longrightarrow$ intero rappresentante il numero totale di alunni; 
+\\char al[na][30] $\longrightarrow$ array di stringhe contenente nome e cognome degli alunni in ordine alfabetico.
+\vspace{50px}
+\subsection{Caricai}
+%text for Caricai
+\subsubsection*{Procedura}
+%text for funzione
+Prima procedura a venire eseguita, permette di inizializzare il calendario e gli alunni tramite i due file esterni;
+\subsubsection*{Argomenti}
+%text for argomenti
+char y[303][30] $\longrightarrow$ array con una stringa per ogni giorno dell'anno scolastico, stringa contenente i numeri degli interrogati di tale giorno.
+\vspace{50px}
+\end{document}
